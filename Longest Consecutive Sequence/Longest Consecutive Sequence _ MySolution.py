@@ -14,7 +14,6 @@ class Solution:
                 continue
             j = 1
             while numDict[num[i]-j] != 0:
-                numDict[num[i] - j] = 0
                 longestSubstringTillNow += 1
                 j += 1
             if(longestSubstringTillNow > longestSubstring):
