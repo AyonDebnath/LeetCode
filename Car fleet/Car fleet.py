@@ -17,12 +17,11 @@ class Solution:
             elif minStack[-1][0] < timeToReachTarget:
                 minStack.append([timeToReachTarget, 0])
                 continue
-            while minStack and minStack[-1][0] >= timeToReachTarget:
+            if minStack and minStack[-1][0] >= timeToReachTarget:
                 inFleet = minStack[-1][-1]
-                minStack.pop()
+                minStack[-1][-1] = 1
             if not inFleet:
                 fleet += 1
-            minStack.append([timeToReachTarget, 1])
         temp = []
         for i in minStack:
             if i[-1] == 0:
@@ -33,4 +32,4 @@ class Solution:
 
 
 sol = Solution()
-print(sol.carFleet(27, [19,25,16,11,23,9,18,0,10,17,3,14,12,20,5], [7,9,6,3,3,5,1,8,3,6,10,4,6,2,6]))
+print(sol.carFleet(10, [0,4,2], [2,1,3]))
