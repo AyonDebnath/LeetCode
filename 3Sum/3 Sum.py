@@ -1,28 +1,43 @@
 class Solution:
     def threeSum(self, nums: [int]) -> [[int]]:
+        nums.sort()
 
         triplets = []
-        nums.sort()
-        numsMap = {}  # value -> index
+        duplicationAlertFlag = 0
+        for i in range((len(nums) - 2)):
+            # triplet = [a, b, c]
+            a = nums[i]
 
-        if not nums:
-            return []
+            if duplicationAlertFlag:
+                duplicationAlertFlag = 0
+                continue
 
-        if len(nums) < 3:
-            return []
+            if len(nums) > 0 and i < len(nums) -1 and nums[i] == nums[i+1]:
+                duplicationAlertFlag = 1
 
-        for index, value in enumerate(nums):
-            numsMap[value] = index
+            if i > 0 and nums[i] == nums[i-1] and nums[i-1] == nums[i-2]:
+                continue
 
-        for i in range(len(nums) - 2):
+            leftPointer = i + 1
+            rightPointer = len(nums) - 1
 
-            if nums[i] == nums[i + 1] and (-(nums[i] + nums[i+1]) in numsMap.keys()) and (numsMap[-(nums[i] + nums[i+1])] != i or numsMap[-(nums[i] + nums[i+1])] != i+1):
-                triplets.append([nums[i], nums[i + 1], -(nums[i] + nums[i+1])])
-
-            elif nums[i] + nums[i + 1] + nums[i + 2] == 0:
-                triplets.append([nums[i], nums[i + 1], nums[i + 2]])
+            target = -a
+            while leftPointer < rightPointer:
+                sum = nums[leftPointer] + nums[rightPointer]
+                if sum < target:
+                    leftPointer += 1
+                elif sum > target:
+                    rightPointer -= 1
+                elif sum == target:
+                    triplets.append([nums[i], nums[leftPointer], nums[rightPointer]])
+                    if nums[i] == nums[leftPointer]:
+                        duplicationAlertFlag = 0
+                    break
         return triplets
 
 
+
 sol = Solution()
-print(sol.threeSum([0, 0, 0]))
+# print(sol.threeSum([-4, -1,-1,0,1,2]))
+# print(sol.threeSum([0,0,0,0]))
+print(sol.threeSum([-2,0,1,1,2]))
