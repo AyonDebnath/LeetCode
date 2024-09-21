@@ -1,4 +1,7 @@
 # Definition for singly-linked list.
+import copy
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -9,17 +12,18 @@ class Solution:
         Do not return anything, modify head in-place instead.
         """
 
-        pointer = head
-        nextNode = pointer.next
+        pointer = copy.deepcopy(head)
+        nextNode = copy.deepcopy(head.next)
         pointer.next = None
         length = 0
         while nextNode is not None:
             length += 1
-            temp = nextNode.next
+            temp = copy.deepcopy(nextNode.next)
             nextNode.next = pointer
             pointer = nextNode
             nextNode = temp
         headRvrsd = pointer
+
 
         pointer1 = head
         pointer2 = headRvrsd
@@ -27,6 +31,7 @@ class Solution:
             temp = pointer1.next
             pointer1.next = pointer2
             pointer1 = temp
+
 
             if i == length//2 + 1:
                 continue
