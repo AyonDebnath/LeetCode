@@ -1,6 +1,3 @@
-import copy
-
-
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if head is None:
