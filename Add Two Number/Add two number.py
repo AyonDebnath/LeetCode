@@ -11,37 +11,21 @@ class ListNode:
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
 
-        # reverse the two linked lists
-
-        prev, curr = None, l1
-
-        while curr is not None:
-            temp = curr.next
-            curr.next = prev
-            prev = curr
-            curr = temp
-        l1 = prev
-
-        prev, curr = None, l2
-        while curr is not None:
-            temp = curr.next
-            curr.next = prev
-
-            prev = curr
-            curr = temp
-        l2 = prev
-
         head = None
         prev = None
         holder = 0
-        while l1 and l2:
-
-            val = l1.val + l2.val + holder
+        while l1 or l2:
+            if l1 is None:
+                val = 0 + l2.val + holder
+            elif l2 is None:
+                val = l1.val + 0 + holder
+            else:
+                val = l1.val + l2.val + holder
             if val < 10:
                 pointer = ListNode(val)
                 holder = 0
             else:
-                holder = val - 9
+                holder = 1
                 pointer = ListNode(val - 10)
 
             if prev is None:
@@ -53,18 +37,13 @@ class Solution:
             if head is None:
                 head = pointer
 
-            l1 = l1.next
-            l2 = l2.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
 
-        if l1 is None and l2 is None:
+        if holder == 1:
             prev.next = ListNode(holder)
             return head
 
-
-
-
-
-
         return head
 sol = Solution()
-print(sol.addTwoNumbers(ListNode(1, ListNode(2, ListNode(2))) , ListNode(1, ListNode(2, ListNode(8)))))
+print(sol.addTwoNumbers(ListNode(9, ListNode(9, ListNode(2))) , ListNode(1, ListNode(2, ListNode(8)))))
