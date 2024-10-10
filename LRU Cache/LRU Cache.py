@@ -12,7 +12,7 @@ class Solution:
         self.cache = {} #maps key to node
 
         self.left, self.right = Node(0, 0), Node(0, 0)
-        self.left.next, self.right.next = self.right, self.left
+        self.left.next, self.right.prev = self.right, self.left
 
     def remove(self, node):
         # the last node from the linked list
