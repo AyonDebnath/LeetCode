@@ -7,12 +7,12 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # returns (bool/p, bool/q, node/common_ancestor)
-        if root is None:
-            return None
-        left_tuple = lowestCommonAncestor(root, p, q)
+        curr = root
 
-        ancestor = None
-        if left_tuple.__contains__(False):
-            if left_tuple.__contains__(True):
-                ancestor = node
+        while curr:
+            if p.val < curr.val and q.val < curr.val:
+                curr = curr.left
+            elif p.val > curr.val and q.val > curr.val:
+                curr = curr.right
+            else:
+                return curr
