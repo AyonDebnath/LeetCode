@@ -14,18 +14,21 @@ class WordDictionary:
             if letter not in curr.children:
                 curr.children[letter] = Node()
             curr = curr.children[letter]
-        return curr.isWord
+        curr.isWord = True
 
     def dfs(self, startIndex, currNode, word):
 
         for i in range(startIndex, len(word)):
             if word[i] == ".":
-                pass
+                for node in currNode.children.values():
+                    if(self.dfs(i+1, node, word)):
+                        return True
+                return False
             elif word[i] not in currNode.children:
                 return False
             else:
                 currNode = currNode.children[word[i]]
-        return True
+        return currNode.isWord
 
     def search(self, word: str) -> bool:
         return self.dfs(0, self.root, word)
