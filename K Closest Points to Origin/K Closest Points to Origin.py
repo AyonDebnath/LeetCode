@@ -10,26 +10,20 @@ def getDistance(point1, point2):
 class Solution:
 
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        distances = []
-        for i in range(len(points)):
-            distances.append(getDistance(points[i], [0, 0]))
+        distancePoints = []
+        for point in points:
+            temp = []
+            temp.append(getDistance(point, [0, 0]))
+            temp.extend(point)
+            distancePoints.append(temp)
 
-        pointsAndDistances = {}
-        for i in range(len(points)):
-            pointsAndDistances[tuple(points[i])] = distances[i]
-
-        kDistances = {}
-        heapq.heapify(distances)
+        heapq.heapify(distancePoints)
+        kClosestPoints = []
         for i in range(k):
-            kDistances[heapq.heappop(distances)] = 0
-
-        i = 0
-        kDistancesPoints = []
-        for key in pointsAndDistances.keys():
-            if pointsAndDistances[key] in kDistances:
-                kDistancesPoints.append(key)
-        return kDistancesPoints
+            temp = heapq.heappop(distancePoints)
+            kClosestPoints.append(temp[1:])
+        return kClosestPoints
 
 
-sol = Solution()
-print(sol.kClosest([[2,2],[2,2],[3,3],[2,-2],[1,1]], 4))
+# sol = Solution()
+# print(sol.kClosest([[2,2],[2,2],[3,3],[2,-2],[1,1]], 4))
