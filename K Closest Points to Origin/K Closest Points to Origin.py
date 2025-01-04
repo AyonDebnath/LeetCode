@@ -16,7 +16,7 @@ class Solution:
 
         pointsAndDistances = {}
         for i in range(len(points)):
-            pointsAndDistances[str(points[i])] = distances[i]
+            pointsAndDistances[tuple(points[i])] = distances[i]
 
         kDistances = {}
         heapq.heapify(distances)
@@ -31,3 +31,5 @@ class Solution:
         return kDistancesPoints
 
 
+sol = Solution()
+print(sol.kClosest([[2,2],[2,2],[3,3],[2,-2],[1,1]], 4))
