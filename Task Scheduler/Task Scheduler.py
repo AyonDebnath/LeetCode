@@ -15,18 +15,18 @@ class Solution:
         result = []
         while sum(distinctCount) < 0 or len(waitingQueue) != 0:
             curr = None
-            if len(waitingQueue) > 0 and waitingQueue[0][0] == time:
-                curr = -waitingQueue.pop(0)[1]
-                result.append('.')
-                curr -= 1
-                if curr != 0:
-                    waitingQueue.append([time + n + 1, -curr])
-            elif sum(distinctCount) < 0:
+            if sum(distinctCount) < 0:
                 curr = -heapq.heappop(distinctCount)
                 result.append('.')
                 curr -=1
                 if curr != 0:
                     waitingQueue.append([time+n+1, -curr])
+            elif len(waitingQueue) > 0 and waitingQueue[0][0] <= time:
+                curr = -waitingQueue.pop(0)[1]
+                result.append('.')
+                curr -= 1
+                if curr != 0:
+                    waitingQueue.append([time + n + 1, -curr])
             elif sum(distinctCount) == 0:
                 result.append('.')
 
@@ -39,4 +39,5 @@ class Solution:
 
 
 sol = Solution()
-print(sol.leastInterval(["A","A","A","B","B","B"], 2))
+# print(sol.leastInterval(["A","A","A","B","B","B"], 2))
+print(sol.leastInterval(["A","C","A","B","D","B"], 1))
