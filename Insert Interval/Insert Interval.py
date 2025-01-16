@@ -3,20 +3,23 @@ from typing import List
 
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        output = []
-        started = False
-        for interval in intervals:
-            start = interval[0]
-            end = interval[1]
 
-            temp = []
+        res = []
+        i = 0
+        n = len(intervals)
 
-            if start < newInterval[0] < end and not started:
-                temp.append(start)
-                started = True
-            elif start < newInterval[1] < end and not started:
-                pass
-            elif newInterval[1] < start and not started:
-                pass
-            else:
-                output.append(interval)
+        while i < n and intervals[i][1] < newInterval[0]:
+            res.append(intervals[i])
+            i+=1
+
+        while i < n and intervals[i][0] <= newInterval[1]:
+            newInterval[0] = min(intervals[i][0], newInterval[0])
+            newInterval[1] = max(intervals[i][1], newInterval[1])
+            i+=1
+        res.append(newInterval)
+
+        while i < n:
+            res.append(intervals[i])
+            i+=1
+
+        return res
