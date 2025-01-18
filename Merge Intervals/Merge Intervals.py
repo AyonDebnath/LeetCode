@@ -32,6 +32,9 @@ class Solution:
         if curr[1] >= nxt[0]:
             curr = self.mergeOverlaps(curr, nxt)
             res.append(curr)
+        else:
+            res.append(curr)
+            res.append(nxt)
 
         if len(res) == 0:
             return intervals
