@@ -21,4 +21,5 @@ class Solution:
         return count
 
 sol = Solution()
-print(sol.eraseOverlapIntervals([[1,2],[2,3],[3,4],[1,3]]))
+print(sol.eraseOverlapIntervals([[-52,31],[-73,-26],[82,97],[-65,-11],
+                                 [-62,-49],[95,99],[58,95],[-31,49],[66,98],[-63,2],[30,47],[-40,-26]]))
