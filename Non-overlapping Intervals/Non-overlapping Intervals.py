@@ -9,17 +9,20 @@ class Solution:
             return 0
 
         count = 0
-        lastEnd = intervals[0]
+        prev = intervals[0]
+        curr = None
 
         for interval in intervals[1:]:
-            if lastEnd[1] > interval[0]:
-                intervals.remove(interval)
+            curr = interval
+            if prev[1] > curr[0]:
+                if prev[1]  > curr[1]:
+                    #prev is removed
+                    prev = curr
                 count +=1
             else:
-                lastEnd = interval
+                prev = curr
 
         return count
 
 sol = Solution()
-print(sol.eraseOverlapIntervals([[-52,31],[-73,-26],[82,97],[-65,-11],
-                                 [-62,-49],[95,99],[58,95],[-31,49],[66,98],[-63,2],[30,47],[-40,-26]]))
+print(sol.eraseOverlapIntervals([[1,2],[2,3],[3,4],[1,3]]))
