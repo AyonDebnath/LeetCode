@@ -7,12 +7,12 @@ class Solution:
         if len(nums) == 0:
             return 0
 
-        currSum = nums[0]
+        currSum = 0
         maxSum = nums[0]
 
-        for num in nums[1:]:
-            currSum += num
+        for num in nums:
             if currSum < 0:
                 currSum = 0
+            currSum += num
             maxSum = max(currSum, maxSum)
         return maxSum
