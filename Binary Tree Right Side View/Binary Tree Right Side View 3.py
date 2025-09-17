@@ -23,7 +23,6 @@ class Solution:
             qlen = len(q)
             for i in range(qlen):
                 node = q.popleft()
-
                 if node:
                     rightside = node
                     q.append(node.left)
