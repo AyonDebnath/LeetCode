@@ -1,27 +1,25 @@
 from copy import deepcopy
 from typing import List
 
-superset = []
+
 class Solution:
 
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        global superset
+
+        superset = []
 
         if len(nums) == 0:
             return []
 
-        self.r_subsets(nums.pop(), nums)
+        self.r_subsets(nums.pop(), nums, superset)
         superset.append([])
-        temp = deepcopy(superset)
-        superset = None
         return superset
 
 
-    def r_subsets(self, num, nums):
-        global superset
+    def r_subsets(self, num, nums, superset):
 
         while len(nums) != 0:
-            self.r_subsets(nums.pop(), nums)
+            self.r_subsets(nums.pop(), nums, superset)
 
         superset_copy = deepcopy(superset)
         for i in range(len(superset)):
@@ -32,8 +30,8 @@ class Solution:
 
 
 sol = Solution()
-# print(sol.subsets([1, 2, 3]))
-print(sol.subsets([0]))
+print(sol.subsets([1, 2, 3]))
+# print(sol.subsets([0]))
 
 
 
