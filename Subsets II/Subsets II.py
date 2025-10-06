@@ -3,38 +3,39 @@ from typing import List
 
 
 class Solution:
+    superset = []
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        superset = []
-
-        if len(nums) == 0:
+        if len(nums) > 0:
+            self.subsetsWithDup_2(nums[1:], nums[0])
+        elif len(nums) == 0:
             return []
 
-        self.r_subsets(nums.pop(), nums, superset)
-        if [] in superset:
-            superset.remove([])
-        superset.append([])
-        return superset
+        while [] in self.superset:
+            self.superset.remove([])
 
+        self.superset.append([])
+        temp = deepcopy(self.superset)
+        self.superset = None
+        return temp
 
-    def r_subsets(self, num, nums, superset):
+    def subsetsWithDup_2(self, nums, num):
+        if len(nums) > 0:
+            self.subsetsWithDup_2(nums[1:], nums[0])
 
-        while len(nums) != 0:
-            self.r_subsets(nums.pop(), nums, superset)
-
-        superset_copy = deepcopy(superset)
-        for i in range(len(superset)):
-            temp = deepcopy(superset_copy[i])
-            temp.append(num)
-            if temp in superset:
-                superset_copy[i] = []
-                continue
-            superset_copy[i].append(num)
-
-        if [num] not in superset:
-            superset_copy.append([num])
-
-        superset.extend(superset_copy)
-
+        if [num] not in self.superset:
+            copy = deepcopy(self.superset)
+            for i in range(len(copy)):
+                copy[i].append(num)
+            copy.append([num])
+            self.superset.extend(copy)
+        else:
+            copy = deepcopy(self.superset)
+            for i in range(len(copy)):
+                if num not in copy[i] or [num] == copy[i]:
+                    copy[i].append(num)
+                else:
+                    copy[i] = []
+            self.superset.extend(copy)
 
 sol = Solution()
-print(sol.subsetsWithDup([1, 2, 2]))
+print(sol.subsetsWithDup([1, 1, 2, 2]))
