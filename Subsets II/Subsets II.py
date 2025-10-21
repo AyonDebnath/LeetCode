@@ -1,41 +1,32 @@
-from copy import deepcopy
 from typing import List
 
 
 class Solution:
-    superset = []
+
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        if len(nums) > 0:
-            self.subsetsWithDup_2(nums[1:], nums[0])
-        elif len(nums) == 0:
-            return []
+        nums.sort()
+        res = []
 
-        while [] in self.superset:
-            self.superset.remove([])
+        def backtrack(i, subset):
+            if i == len(nums):
+                res.append(subset[::])
+                return
 
-        self.superset.append([])
-        temp = deepcopy(self.superset)
-        self.superset = None
-        return temp
+            # We include the ith element
+            subset.append(nums[i])
+            backtrack(i+1, subset)
+            subset.pop()
 
-    def subsetsWithDup_2(self, nums, num):
-        if len(nums) > 0:
-            self.subsetsWithDup_2(nums[1:], nums[0])
+            # We dont include the ith element
+            while i + 1 < len(nums) and nums[i+1] == nums[i]:
+                i += 1
 
-        if [num] not in self.superset:
-            copy = deepcopy(self.superset)
-            for i in range(len(copy)):
-                copy[i].append(num)
-            copy.append([num])
-            self.superset.extend(copy)
-        else:
-            copy = deepcopy(self.superset)
-            for i in range(len(copy)):
-                if num not in copy[i] or [num] == copy[i]:
-                    copy[i].append(num)
-                else:
-                    copy[i] = []
-            self.superset.extend(copy)
+            backtrack(i+1, subset)
+
+        backtrack(0, [])
+        return res
 
 sol = Solution()
-print(sol.subsetsWithDup([1, 1, 2, 2]))
+print(sol.subsetsWithDup([1, 2, 2]))
+
+
