@@ -1,5 +1,3 @@
-import copy
-from typing import List
 
 
 class Solution:
@@ -15,21 +13,18 @@ class Solution:
 
     def partition(self, s: str) -> List[List[str]]:
         res = []
-        partition = []
+        part = []
 
         def dfs(i):
             if i >= len(s):
-                res.append(partition.copy())
-                return
+               res.append(part.copy())
+               return
             for j in range(i, len(s)):
-                if self.isPalindrome(s[i:j+1]):
-                    partition.append(s[i:j+1])
-                    dfs(i+1)
-                    partition.pop()
-
+               if self.isPalindrome(s[i:j+1]):
+                   part.append(s[i:j+1])
+                   dfs(j+1)
+                   part.pop()
         dfs(0)
 
-        return res
 
-sol = Solution()
-print(sol.partition('aab'))
+        return res
